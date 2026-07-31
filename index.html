@@ -156,11 +156,28 @@
   .wtable{
     margin-top:16px;border:1px solid var(--line);border-radius:var(--r);
     overflow-x:auto;-webkit-overflow-scrolling:touch;
-    font-size:12.5px;
+    font-size:12.5px;position:relative;
+    scrollbar-width:thin;scrollbar-color:rgba(200,166,92,.35) rgba(255,255,255,.04);
+  }
+  .wtable::-webkit-scrollbar{height:8px}
+  .wtable::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:99px}
+  .wtable::-webkit-scrollbar-thumb{background:rgba(200,166,92,.35);border-radius:99px}
+  .wtable::-webkit-scrollbar-thumb:hover{background:rgba(200,166,92,.55)}
+  .wtable::after{
+    content:"";position:sticky;right:0;float:right;
+    width:28px;height:100%;margin-right:-29px;pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(11,15,23,.78) 75%);
+    border-radius:0 var(--r) var(--r) 0;
   }
   .wtable table{width:100%;min-width:620px;border-collapse:collapse}
   .wtable th,.wtable td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
   .wtable th:first-child,.wtable td:first-child{text-align:left}
+  .wtable th:first-child,.wtable td:first-child{
+    position:sticky;left:0;z-index:1;
+    background:var(--panel-solid);
+    border-right:1px solid var(--line-strong);
+  }
+  .wtable thead th:first-child{z-index:2;background:#182031}
   .wtable thead th{
     font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);
     background:rgba(255,255,255,.03);font-weight:600;
@@ -320,6 +337,8 @@
     .wrap{max-width:none}
     .dim,.results,.lvl,.wtable,.playbook,.roadmap,.principle{border-color:#ddd;background:#fff}
     .q-text{color:#222}
+    .wtable th:first-child,.wtable td:first-child{background:#fff;border-right-color:#ddd}
+    .wtable::after{display:none}
     h1{color:#111;-webkit-text-fill-color:#111}
     .scale button{print-color-adjust:exact;-webkit-print-color-adjust:exact}
   }
