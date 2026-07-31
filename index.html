@@ -125,26 +125,28 @@
   }
   .lvl:hover{transform:translateY(-3px);border-color:var(--line-strong)}
   .lvl .bar{height:3px;border-radius:3px;margin:0 -16px 14px}
-  .lvl h3{font-family:var(--serif);font-size:19px;font-weight:600}
+  .lvl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .lvl h3{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.25}
   .lvl .range{font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted);margin:2px 0 8px}
   .lvl .desc{font-size:12.5px;color:var(--faint);font-weight:300;line-height:1.5}
   .lvl .flag{
-    position:absolute;top:14px;right:14px;font-size:9px;font-weight:700;letter-spacing:1.6px;
-    padding:3px 8px;border-radius:999px;text-transform:uppercase;
+    font-size:9px;font-weight:700;letter-spacing:1.4px;line-height:1;
+    padding:5px 9px;border-radius:999px;text-transform:uppercase;
+    white-space:nowrap;margin-top:2px;flex:0 0 auto;
   }
   .lvl[data-lv="1"]{--c:var(--l1)}.lvl[data-lv="2"]{--c:var(--l2)}.lvl[data-lv="3"]{--c:var(--l3)}.lvl[data-lv="4"]{--c:var(--l4)}.lvl[data-lv="5"]{--c:var(--l5)}
   .lvl .bar{background:var(--c)}
   .lvl .flag{color:var(--c);border:1px solid var(--c);background:rgba(0,0,0,.25)}
 
   /* ---------- industry ---------- */
-  .industries{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+  .industries{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
   .ind{
     cursor:pointer;text-align:center;padding:14px 10px;
     border:1px solid var(--line);border-radius:12px;background:var(--panel);
     color:var(--muted);font-size:13px;font-weight:500;letter-spacing:.3px;
     transition:all .22s;position:relative;
   }
-  .ind small{display:block;font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);margin-top:3px}
+  .ind small{display:block;font-size:10.5px;line-height:1.4;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-top:3px;word-break:break-word}
   .ind:hover{border-color:var(--line-strong);color:var(--ivory)}
   .ind.active{
     color:#14100A;background:var(--gold-grad);border-color:transparent;
@@ -152,10 +154,11 @@
   }
   .ind.active small{color:rgba(20,16,10,.6)}
   .wtable{
-    margin-top:16px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    margin-top:16px;border:1px solid var(--line);border-radius:var(--r);
+    overflow-x:auto;-webkit-overflow-scrolling:touch;
     font-size:12.5px;
   }
-  .wtable table{width:100%;border-collapse:collapse}
+  .wtable table{width:100%;min-width:620px;border-collapse:collapse}
   .wtable th,.wtable td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
   .wtable th:first-child,.wtable td:first-child{text-align:left}
   .wtable thead th{
@@ -580,10 +583,12 @@ function renderLevels(){
   $("lvl-cards").innerHTML = LEVELS.map(l=>`
     <div class="lvl" data-lv="${l.lv}">
       <div class="bar"></div>
-      <h3>Level ${l.lv} — ${l.name}</h3>
+      <div class="lvl-top">
+        <h3>Level ${l.lv} — ${l.name}</h3>
+        <span class="flag">${l.flag}</span>
+      </div>
       <div class="range">Score ${l.range}</div>
       <div class="desc">${l.desc}</div>
-      <span class="flag">${l.flag}</span>
     </div>`).join("");
 }
 
