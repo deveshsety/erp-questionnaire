@@ -1,909 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ERP Readiness &amp; Maturity Assessment — Executive Diagnostic</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#0B0F17;
-    --ink-2:#0E1420;
-    --panel:rgba(255,255,255,.035);
-    --panel-solid:#131A28;
-    --line:rgba(255,255,255,.09);
-    --line-strong:rgba(255,255,255,.16);
-    --ivory:#EDE8DC;
-    --muted:#9AA3B5;
-    --faint:#66708A;
-    --gold:#C8A65C;
-    --gold-2:#E3C98A;
-    --gold-grad:linear-gradient(135deg,#E6CF92,#C8A65C 55%,#9C7B3C);
-    --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
-    --sans:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-    --r:14px;
-    --l1:#E05A5A; --l2:#E08A3C; --l3:#C8A65C; --l4:#5BC0A6; --l5:#7FC96F;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:var(--sans);
-    background:
-      radial-gradient(1100px 500px at 85% -10%,rgba(200,166,92,.09),transparent 60%),
-      radial-gradient(900px 600px at -10% 20%,rgba(91,192,166,.05),transparent 55%),
-      var(--ink);
-    color:var(--ivory);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  ::selection{background:rgba(200,166,92,.35)}
-  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
-  a{color:var(--gold-2)}
-
-  /* ---------- top bar ---------- */
-  header.topbar{
-    position:sticky;top:0;z-index:50;
-    background:rgba(11,15,23,.82);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--line);
-  }
-  .topbar-inner{display:flex;align-items:center;gap:16px;padding:12px 0}
-  .mark{
-    width:38px;height:38px;flex:0 0 auto;border-radius:10px;
-    background:var(--gold-grad);color:#14100A;
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.5px;
-    box-shadow:0 4px 18px rgba(200,166,92,.35);
-  }
-  .topbar-title{flex:1;min-width:0}
-  .topbar-title b{font-family:var(--serif);font-size:17px;letter-spacing:.4px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .topbar-title span{font-size:11px;letter-spacing:2.2px;text-transform:uppercase;color:var(--faint)}
-  .chip{
-    font-size:12px;font-weight:600;letter-spacing:.6px;
-    padding:7px 12px;border-radius:999px;border:1px solid var(--line-strong);
-    white-space:nowrap;
-  }
-  .chip b{color:var(--gold-2);font-variant-numeric:tabular-nums}
-  .chip.level{color:#0E0A05}
-  @media(max-width:640px){.topbar-title b{font-size:14px}.chip{padding:5px 9px;font-size:11px}}
-
-  /* ---------- hero ---------- */
-  .hero{padding:72px 0 44px;text-align:center;position:relative}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:10px;
-    font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
-    color:var(--gold);border:1px solid rgba(200,166,92,.35);
-    padding:8px 16px;border-radius:999px;background:rgba(200,166,92,.07);
-    margin-bottom:26px;
-  }
-  .eyebrow::before{content:"";width:22px;height:1px;background:var(--gold);opacity:.6}
-  .eyebrow::after{content:"";width:22px;height:1px;background:var(--gold);opacity:.6}
-  h1{
-    font-family:var(--serif);font-weight:600;
-    font-size:clamp(38px,6.5vw,64px);line-height:1.05;letter-spacing:.5px;
-    background:linear-gradient(180deg,#FFFFFF 15%,#D9CDB2 55%,#9A8A63);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .hero p.sub{max-width:640px;margin:20px auto 0;color:var(--muted);font-size:15.5px;font-weight:300}
-  .hero p.sub b{color:var(--ivory);font-weight:500}
-  .doc-meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
-  .doc-meta span{
-    font-size:11.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);
-    border:1px solid var(--line);padding:6px 12px;border-radius:8px;background:var(--panel);
-  }
-  .principle{
-    margin:34px auto 0;max-width:760px;text-align:left;
-    border:1px solid rgba(200,166,92,.4);border-left:3px solid var(--gold);
-    background:linear-gradient(120deg,rgba(200,166,92,.10),rgba(200,166,92,.02));
-    padding:18px 22px;border-radius:var(--r);
-    font-size:14.5px;color:#D8CDB6;
-  }
-  .principle b{color:var(--gold-2)}
-  .principle .tag{
-    display:inline-block;font-size:10px;letter-spacing:2.4px;font-weight:700;
-    color:#14100A;background:var(--gold-grad);padding:3px 10px;border-radius:999px;
-    margin-bottom:8px;text-transform:uppercase;
-  }
-
-  /* ---------- level cards ---------- */
-  section{scroll-margin-top:80px}
-  .sec-head{margin:64px 0 26px}
-  .sec-kicker{
-    font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);
-    display:flex;align-items:center;gap:14px;
-  }
-  .sec-kicker::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line-strong),transparent)}
-  h2.sec-title{font-family:var(--serif);font-size:clamp(28px,4vw,38px);font-weight:600;margin-top:8px;letter-spacing:.3px}
-  .sec-sub{color:var(--muted);font-size:14px;margin-top:6px;max-width:640px;font-weight:300}
-  .levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
-  .lvl{
-    border:1px solid var(--line);border-radius:var(--r);background:var(--panel);
-    padding:16px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s;
-  }
-  .lvl:hover{transform:translateY(-3px);border-color:var(--line-strong)}
-  .lvl .bar{height:3px;border-radius:3px;margin:0 -16px 14px}
-  .lvl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
-  .lvl h3{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.25}
-  .lvl .range{font-size:12px;font-variant-numeric:tabular-nums;color:var(--muted);margin:2px 0 8px}
-  .lvl .desc{font-size:12.5px;color:var(--faint);font-weight:300;line-height:1.5}
-  .lvl .flag{
-    font-size:9px;font-weight:700;letter-spacing:1.4px;line-height:1;
-    padding:5px 9px;border-radius:999px;text-transform:uppercase;
-    white-space:nowrap;margin-top:2px;flex:0 0 auto;
-  }
-  .lvl[data-lv="1"]{--c:var(--l1)}.lvl[data-lv="2"]{--c:var(--l2)}.lvl[data-lv="3"]{--c:var(--l3)}.lvl[data-lv="4"]{--c:var(--l4)}.lvl[data-lv="5"]{--c:var(--l5)}
-  .lvl .bar{background:var(--c)}
-  .lvl .flag{color:var(--c);border:1px solid var(--c);background:rgba(0,0,0,.25)}
-
-  /* ---------- industry ---------- */
-  .industries{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-  .ind{
-    cursor:pointer;text-align:center;padding:14px 10px;
-    border:1px solid var(--line);border-radius:12px;background:var(--panel);
-    color:var(--muted);font-size:13px;font-weight:500;letter-spacing:.3px;
-    transition:all .22s;position:relative;
-  }
-  .ind small{display:block;font-size:10.5px;line-height:1.4;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-top:3px;word-break:break-word}
-  .ind:hover{border-color:var(--line-strong);color:var(--ivory)}
-  .ind.active{
-    color:#14100A;background:var(--gold-grad);border-color:transparent;
-    box-shadow:0 6px 22px rgba(200,166,92,.32);
-  }
-  .ind.active small{color:rgba(20,16,10,.6)}
-  .wtable{
-    margin-top:16px;border:1px solid var(--line);border-radius:var(--r);
-    overflow-x:auto;-webkit-overflow-scrolling:touch;
-    font-size:12.5px;position:relative;
-    scrollbar-width:thin;scrollbar-color:rgba(200,166,92,.35) rgba(255,255,255,.04);
-  }
-  .wtable::-webkit-scrollbar{height:8px}
-  .wtable::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:99px}
-  .wtable::-webkit-scrollbar-thumb{background:rgba(200,166,92,.35);border-radius:99px}
-  .wtable::-webkit-scrollbar-thumb:hover{background:rgba(200,166,92,.55)}
-  .wtable::after{
-    content:"";position:sticky;right:0;float:right;
-    width:28px;height:100%;margin-right:-29px;pointer-events:none;
-    background:linear-gradient(90deg,transparent,rgba(11,15,23,.78) 75%);
-    border-radius:0 var(--r) var(--r) 0;
-  }
-  .wtable table{width:100%;min-width:620px;border-collapse:collapse}
-  .wtable th,.wtable td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-  .wtable th:first-child,.wtable td:first-child{text-align:left}
-  .wtable th:first-child,.wtable td:first-child{
-    position:sticky;left:0;z-index:1;
-    background:var(--panel-solid);
-    border-right:1px solid var(--line-strong);
-  }
-  .wtable thead th:first-child{z-index:2;background:#182031}
-  .wtable thead th{
-    font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint);
-    background:rgba(255,255,255,.03);font-weight:600;
-  }
-  .wtable tbody tr:last-child td{border-bottom:none}
-  .wtable tbody td{color:var(--muted);font-variant-numeric:tabular-nums}
-  .wtable tbody td.hi{color:var(--gold-2);font-weight:700}
-  .wtable tbody th{
-    text-align:left;font-weight:500;color:var(--ivory);padding:9px 12px;border-bottom:1px solid var(--line);
-  }
-  .wtable tbody tr:last-child th{border-bottom:none}
-
-  /* ---------- questionnaire ---------- */
-  .dim{
-    border:1px solid var(--line);border-radius:var(--r);background:var(--panel);
-    margin-bottom:18px;overflow:hidden;
-  }
-  .dim-head{
-    padding:18px 22px;display:flex;align-items:center;gap:16px;
-    border-bottom:1px solid var(--line);background:rgba(255,255,255,.025);
-  }
-  .dim-num{
-    width:44px;height:44px;flex:0 0 auto;border-radius:12px;
-    border:1px solid rgba(200,166,92,.4);color:var(--gold-2);
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--serif);font-weight:700;font-size:20px;
-    background:rgba(200,166,92,.08);
-  }
-  .dim-head h3{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:.2px}
-  .dim-head p{font-size:12px;color:var(--faint);letter-spacing:.4px}
-  .dim-prog{margin-left:auto;font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .dim-prog b{color:var(--gold-2)}
-  .q{padding:14px 22px;display:flex;gap:18px;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,.045)}
-  .q:last-child{border-bottom:none}
-  .q-idx{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums;padding-top:4px;width:24px;flex:0 0 auto}
-  .q-text{flex:1;font-size:14px;font-weight:300;color:#D9D3C4;padding-top:2px}
-  .scale{display:flex;gap:6px;flex:0 0 auto;padding-top:2px}
-  .scale button{
-    width:34px;height:34px;border-radius:9px;cursor:pointer;
-    border:1px solid var(--line-strong);background:rgba(255,255,255,.04);
-    color:var(--muted);font-family:var(--sans);font-size:13px;font-weight:600;
-    transition:all .16s;font-variant-numeric:tabular-nums;
-  }
-  .scale button:hover{border-color:var(--gold);color:var(--gold-2);transform:translateY(-2px)}
-  .scale button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  .scale button.sel{
-    background:var(--gold-grad);color:#14100A;border-color:transparent;
-    box-shadow:0 4px 14px rgba(200,166,92,.35);
-  }
-  @media(max-width:640px){
-    .q{flex-direction:column;gap:10px}
-    .q-text{padding-top:0}
-    .scale{width:100%;justify-content:space-between}
-    .scale button{flex:1}
-    .dim-prog{display:none}
-  }
-  .scale-legend{display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);letter-spacing:1.2px;text-transform:uppercase;padding:12px 22px 4px}
-  .scale-legend span{display:flex;align-items:center;gap:8px}
-  .scale-legend i{width:12px;height:12px;border-radius:3px;border:1px solid var(--line-strong);display:inline-block}
-
-  /* ---------- results ---------- */
-  .results{
-    border:1px solid rgba(200,166,92,.35);border-radius:18px;
-    background:linear-gradient(180deg,rgba(200,166,92,.07),rgba(255,255,255,.02));
-    padding:36px;margin-top:10px;position:relative;overflow:hidden;
-  }
-  .results::before{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(600px 200px at 50% 0%,rgba(200,166,92,.12),transparent 70%);
-  }
-  .res-grid{display:grid;grid-template-columns:280px 1fr;gap:34px;align-items:center;position:relative}
-  @media(max-width:760px){.res-grid{grid-template-columns:1fr}}
-  .gauge{position:relative;width:240px;height:240px;margin:0 auto}
-  .gauge svg{transform:rotate(-90deg);display:block}
-  .gauge .ring-track{stroke:rgba(255,255,255,.08);fill:none;stroke-width:10}
-  .gauge .ring-val{fill:none;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s ease,stroke .4s}
-  .gauge .g-num{
-    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  }
-  .gauge .g-num b{font-family:var(--serif);font-size:58px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
-  .gauge .g-num span{font-size:11px;letter-spacing:2.4px;text-transform:uppercase;color:var(--faint);margin-top:6px}
-  .res-main h3{font-family:var(--serif);font-size:32px;font-weight:600}
-  .res-main .level-badge{
-    display:inline-flex;align-items:center;gap:10px;margin:10px 0 4px;
-    font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-    padding:8px 16px;border-radius:999px;border:1px solid;
-  }
-  .res-main p.verdict{color:var(--muted);font-size:14px;font-weight:300;margin-top:10px;max-width:520px}
-  .res-main p.verdict b{color:var(--ivory);font-weight:500}
-  .kw{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .kw span{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--line-strong);color:var(--muted)}
-  .kw span b{color:var(--gold-2);font-variant-numeric:tabular-nums}
-
-  .charts{margin-top:30px;position:relative;display:grid;grid-template-columns:300px 1fr;gap:30px;align-items:center}
-  @media(max-width:760px){.charts{grid-template-columns:1fr}}
-  .radar-box{display:flex;flex-direction:column;align-items:center}
-  .radar-box h4{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:8px;letter-spacing:.4px}
-  .bars h4{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:14px;letter-spacing:.4px}
-  .bar-row{margin-bottom:12px}
-  .bar-row .lab{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px}
-  .bar-row .lab b{color:var(--ivory);font-weight:500}
-  .bar-row .lab em{font-style:normal;color:var(--gold-2);font-variant-numeric:tabular-nums;font-weight:600}
-  .bar-track{height:7px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden}
-  .bar-fill{height:100%;border-radius:99px;width:0;transition:width 1s cubic-bezier(.2,.7,.3,1)}
-
-  .playbook{
-    margin-top:30px;border:1px solid var(--line);border-radius:14px;background:var(--panel);
-    padding:22px;position:relative;
-  }
-  .playbook h4{font-family:var(--serif);font-size:20px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:4px}
-  .playbook h4 .pnum{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,166,92,.4);padding:3px 9px;border-radius:99px;font-family:var(--sans)}
-  .playbook .pbv{margin-top:10px}
-  .playbook .pbv b{display:block;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--l2);margin-bottom:4px}
-  .playbook .pbv p{font-size:13.5px;color:var(--muted);font-weight:300}
-  .playbook .pba{margin-top:14px;border-top:1px dashed var(--line-strong);padding-top:14px}
-  .playbook .pba b{display:block;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--l3);margin-bottom:4px}
-  .playbook .pba p{font-size:13.5px;color:#D9D3C4;font-weight:300}
-  .playbook .pba p b{display:inline;font-size:inherit;letter-spacing:0;text-transform:none;color:var(--gold-2);font-weight:600}
-
-  .roadmap{
-    margin-top:20px;border:1px solid rgba(255,255,255,.12);border-radius:14px;
-    padding:20px 22px;background:rgba(255,255,255,.03);
-  }
-  .roadmap h4{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:6px}
-  .roadmap p{font-size:13.5px;color:var(--muted);font-weight:300}
-  .roadmap .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:14px}
-  .roadmap .step{border:1px solid var(--line);border-radius:10px;padding:12px;background:rgba(255,255,255,.02)}
-  .roadmap .step b{display:block;font-family:var(--serif);font-size:20px;color:var(--gold-2)}
-  .roadmap .step span{font-size:12px;color:var(--muted);font-weight:300}
-
-  .actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;position:relative}
-  .btn{
-    font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.6px;
-    padding:12px 22px;border-radius:10px;cursor:pointer;border:1px solid var(--line-strong);
-    background:var(--panel);color:var(--ivory);transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
-  }
-  .btn:hover{border-color:var(--gold);color:var(--gold-2);transform:translateY(-1px)}
-  .btn.gold{background:var(--gold-grad);color:#14100A;border-color:transparent;box-shadow:0 6px 20px rgba(200,166,92,.3)}
-  .btn.gold:hover{filter:brightness(1.06);color:#14100A}
-
-  footer{margin-top:70px;border-top:1px solid var(--line);padding:28px 0 40px;text-align:center}
-  footer p{font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:var(--faint)}
-  footer .fmark{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--gold-2);margin-bottom:8px;letter-spacing:1px}
-
-  .toast{
-    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
-    background:var(--gold-grad);color:#14100A;font-size:13px;font-weight:600;
-    padding:12px 22px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);
-    opacity:0;transition:all .35s;z-index:100;letter-spacing:.3px;
-  }
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-  /* ---------- print ---------- */
-  @media print{
-    body{background:#fff;color:#111}
-    .topbar,.actions,.ind,.toast,.sec-kicker::after{display:none!important}
-    .wrap{max-width:none}
-    .dim,.results,.lvl,.wtable,.playbook,.roadmap,.principle{border-color:#ddd;background:#fff}
-    .q-text{color:#222}
-    .wtable th:first-child,.wtable td:first-child{background:#fff;border-right-color:#ddd}
-    .wtable::after{display:none}
-    h1{color:#111;-webkit-text-fill-color:#111}
-    .scale button{print-color-adjust:exact;-webkit-print-color-adjust:exact}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERP Readiness &amp; Maturity Assessment — Executive Diagnostic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<header class="topbar">
-  <div class="wrap topbar-inner">
-    <div class="mark">ERP</div>
-    <div class="topbar-title">
-      <b>Readiness &amp; Maturity Diagnostic</b>
-      <span>ERP Advisory Group</span>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="mark">ERP</div>
+      <div class="topbar-title">
+        <b>Readiness &amp; Maturity Diagnostic</b>
+        <span>ERP Advisory Group</span>
+      </div>
+      <div class="chip">Score <b id="tb-score">—</b></div>
+      <div class="chip level" id="tb-level" style="background:var(--l3);color:#0E0A05">—</div>
     </div>
-    <div class="chip">Score <b id="tb-score">—</b></div>
-    <div class="chip level" id="tb-level" style="background:var(--l3);color:#0E0A05">—</div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eyebrow">Advisory Methodology &amp; Implementation Spec</div>
+      <h1>ERP Readiness &amp;<br>Maturity Assessment</h1>
+      <p class="sub">A strategic <b>6-dimension framework</b> built for C-Suite executives. 30-question diagnostic,
+        industry-weighted scoring, one decisive answer: <b>is your enterprise ready to buy and run an ERP?</b></p>
+      <div class="doc-meta">
+        <span>Target: CIO · CFO · COO</span>
+        <span>Steering Committees</span>
+        <span>Score 1.0 – 5.0</span>
+        <span>5 Maturity Levels</span>
+      </div>
+      <div class="principle">
+        <span class="tag">Key Principle</span>
+        <b>Match readiness before software selection.</b> Organizations scoring at Level 1 or Level 2 must pause
+        software procurement and execute a targeted 90-day remediation roadmap. Selecting software before Level 3
+        significantly increases customization risk, cost inflation, and project failure. Over 65% of failed ERP
+        implementations trace back to organizational unreadiness — poor data hygiene, unstandardized processes,
+        misaligned leadership, missing change management.
+      </div>
+    </div>
+
+    <!-- LEVELS -->
+    <section id="levels">
+      <div class="sec-head">
+        <div class="sec-kicker">The Maturity Ladder</div>
+        <h2 class="sec-title">5 Levels of ERP Readiness</h2>
+        <p class="sec-sub">Your weighted score places the organization on one rung. Each rung carries a distinct risk
+          posture and a mandated next move.</p>
+      </div>
+      <div class="levels" id="lvl-cards"></div>
+    </section>
+
+    <!-- INDUSTRY -->
+    <section id="industry">
+      <div class="sec-head">
+        <div class="sec-kicker">Context First</div>
+        <h2 class="sec-title">Select Your Industry</h2>
+        <p class="sec-sub">A one-size-fits-all assessment produces inaccurate risk profiles. Operational drivers vary by
+          sector — weights recalibrate automatically.</p>
+      </div>
+      <div class="industries" id="ind-selector"></div>
+      <div class="wtable">
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>Manufacturing</th>
+              <th>Retail &amp; E-Comm</th>
+              <th>Healthcare &amp; Pharma</th>
+              <th>Prof. Services</th>
+              <th>BFSI</th>
+            </tr>
+          </thead>
+          <tbody id="weight-table"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- QUESTIONNAIRE -->
+    <section id="questionnaire">
+      <div class="sec-head">
+        <div class="sec-kicker">The Instrument</div>
+        <h2 class="sec-title">30-Question Diagnostic</h2>
+        <p class="sec-sub">Rate each statement honestly — <b style="color:var(--ivory)">1 (Strongly disagree)</b> to <b
+            style="color:var(--ivory)">5 (Strongly agree)</b>. Unanswered items are excluded; the score finalizes when
+          all 30 are complete.</p>
+      </div>
+      <div id="dims"></div>
+    </section>
+
+    <!-- RESULTS -->
+    <section id="results">
+      <div class="sec-head">
+        <div class="sec-kicker">The Verdict</div>
+        <h2 class="sec-title">Readiness Report</h2>
+        <p class="sec-sub">Computed live with industry weighting. Print or export to share with the steering committee.
+        </p>
+      </div>
+      <div class="results">
+        <div class="res-grid">
+          <div class="gauge">
+            <svg width="240" height="240" viewBox="0 0 240 240">
+              <circle class="ring-track" cx="120" cy="120" r="102"></circle>
+              <circle class="ring-val" id="ring" cx="120" cy="120" r="102" stroke-dasharray="640.9"
+                stroke-dashoffset="640.9"></circle>
+            </svg>
+            <div class="g-num"><b id="g-score">—</b><span>Readiness Score</span></div>
+          </div>
+          <div class="res-main">
+            <h3 id="res-title">Awaiting responses</h3>
+            <span class="level-badge" id="res-badge">PENDING</span>
+            <p class="verdict" id="res-verdict">Complete the 30 statements to generate your executive readiness report.
+            </p>
+            <div class="kw" id="res-kw"></div>
+          </div>
+        </div>
+
+        <div class="charts">
+          <div class="radar-box">
+            <h4>Dimension Profile</h4>
+            <div id="radar"></div>
+          </div>
+          <div class="bars">
+            <h4>Dimension Scores</h4>
+            <div id="bars"></div>
+          </div>
+        </div>
+
+        <div class="playbook" id="playbook"></div>
+
+        <div class="roadmap" id="roadmap"></div>
+
+        <div class="actions">
+          <button class="btn gold" onclick="window.print()">Print / Export Report</button>
+          <button class="btn" onclick="resetAll()">Reset Assessment</button>
+        </div>
+      </div>
+    </section>
   </div>
-</header>
 
-<div class="wrap">
+  <footer>
+    <div class="fmark">ERP Advisory Group</div>
+    <p>Executive Maturity Assessment · Strategic 6-Dimension Framework · Advisory Methodology</p>
+  </footer>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="eyebrow">Advisory Methodology &amp; Implementation Spec</div>
-    <h1>ERP Readiness &amp;<br>Maturity Assessment</h1>
-    <p class="sub">A strategic <b>6-dimension framework</b> built for C-Suite executives. 30-question diagnostic, industry-weighted scoring, one decisive answer: <b>is your enterprise ready to buy and run an ERP?</b></p>
-    <div class="doc-meta">
-      <span>Target: CIO · CFO · COO</span>
-      <span>Steering Committees</span>
-      <span>Score 1.0 – 5.0</span>
-      <span>5 Maturity Levels</span>
-    </div>
-    <div class="principle">
-      <span class="tag">Key Principle</span>
-      <b>Match readiness before software selection.</b> Organizations scoring at Level 1 or Level 2 must pause software procurement and execute a targeted 90-day remediation roadmap. Selecting software before Level 3 significantly increases customization risk, cost inflation, and project failure. Over 65% of failed ERP implementations trace back to organizational unreadiness — poor data hygiene, unstandardized processes, misaligned leadership, missing change management.
-    </div>
-  </div>
+  <div class="toast" id="toast"></div>
 
-  <!-- LEVELS -->
-  <section id="levels">
-    <div class="sec-head">
-      <div class="sec-kicker">The Maturity Ladder</div>
-      <h2 class="sec-title">5 Levels of ERP Readiness</h2>
-      <p class="sec-sub">Your weighted score places the organization on one rung. Each rung carries a distinct risk posture and a mandated next move.</p>
-    </div>
-    <div class="levels" id="lvl-cards"></div>
-  </section>
-
-  <!-- INDUSTRY -->
-  <section id="industry">
-    <div class="sec-head">
-      <div class="sec-kicker">Context First</div>
-      <h2 class="sec-title">Select Your Industry</h2>
-      <p class="sec-sub">A one-size-fits-all assessment produces inaccurate risk profiles. Operational drivers vary by sector — weights recalibrate automatically.</p>
-    </div>
-    <div class="industries" id="ind-selector"></div>
-    <div class="wtable">
-      <table>
-        <thead><tr><th>Dimension</th><th>Manufacturing</th><th>Retail &amp; E-Comm</th><th>Healthcare &amp; Pharma</th><th>Prof. Services</th><th>BFSI</th></tr></thead>
-        <tbody id="weight-table"></tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- QUESTIONNAIRE -->
-  <section id="questionnaire">
-    <div class="sec-head">
-      <div class="sec-kicker">The Instrument</div>
-      <h2 class="sec-title">30-Question Diagnostic</h2>
-      <p class="sec-sub">Rate each statement honestly — <b style="color:var(--ivory)">1 (Strongly disagree)</b> to <b style="color:var(--ivory)">5 (Strongly agree)</b>. Unanswered items are excluded; the score finalizes when all 30 are complete.</p>
-    </div>
-    <div id="dims"></div>
-  </section>
-
-  <!-- RESULTS -->
-  <section id="results">
-    <div class="sec-head">
-      <div class="sec-kicker">The Verdict</div>
-      <h2 class="sec-title">Readiness Report</h2>
-      <p class="sec-sub">Computed live with industry weighting. Print or export to share with the steering committee.</p>
-    </div>
-    <div class="results">
-      <div class="res-grid">
-        <div class="gauge">
-          <svg width="240" height="240" viewBox="0 0 240 240">
-            <circle class="ring-track" cx="120" cy="120" r="102"></circle>
-            <circle class="ring-val" id="ring" cx="120" cy="120" r="102" stroke-dasharray="640.9" stroke-dashoffset="640.9"></circle>
-          </svg>
-          <div class="g-num"><b id="g-score">—</b><span>Readiness Score</span></div>
-        </div>
-        <div class="res-main">
-          <h3 id="res-title">Awaiting responses</h3>
-          <span class="level-badge" id="res-badge">PENDING</span>
-          <p class="verdict" id="res-verdict">Complete the 30 statements to generate your executive readiness report.</p>
-          <div class="kw" id="res-kw"></div>
-        </div>
-      </div>
-
-      <div class="charts">
-        <div class="radar-box">
-          <h4>Dimension Profile</h4>
-          <div id="radar"></div>
-        </div>
-        <div class="bars">
-          <h4>Dimension Scores</h4>
-          <div id="bars"></div>
-        </div>
-      </div>
-
-      <div class="playbook" id="playbook"></div>
-
-      <div class="roadmap" id="roadmap"></div>
-
-      <div class="actions">
-        <button class="btn gold" onclick="window.print()">Print / Export Report</button>
-        <button class="btn" onclick="resetAll()">Reset Assessment</button>
-      </div>
-    </div>
-  </section>
-</div>
-
-<footer>
-  <div class="fmark">ERP Advisory Group</div>
-  <p>Executive Maturity Assessment · Strategic 6-Dimension Framework · Advisory Methodology</p>
-</footer>
-
-<div class="toast" id="toast"></div>
-
-<script>
-/* ================================================================
-   ERP READINESS & MATURITY ASSESSMENT — DATA (from framework doc)
-================================================================ */
-const INDUSTRIES = [
-  { id:"mfg",      name:"Manufacturing",       w:[0.15,0.25,0.20,0.15,0.15,0.10] },
-  { id:"retail",   name:"Retail & E-Comm",     w:[0.15,0.15,0.25,0.10,0.20,0.15] },
-  { id:"health",   name:"Healthcare & Pharma", w:[0.20,0.20,0.25,0.10,0.15,0.10] },
-  { id:"prof",     name:"Prof. Services",      w:[0.15,0.10,0.10,0.25,0.15,0.25] },
-  { id:"bfsi",     name:"BFSI",                w:[0.25,0.15,0.20,0.10,0.20,0.10] }
-];
-
-const DIMENSIONS = [
-  {
-    n:1, title:"Strategy & Executive Governance",
-    focus:"Executive alignment, authority & business case",
-    qs:[
-      "Executive leadership actively drives this project as a strategic business transformation, not an IT task.",
-      "The steering committee has clear authority to resolve cross-departmental scope or budget disputes.",
-      "Business case metrics, expected ROI, and success KPIs are documented and approved by executive leadership.",
-      "Budget allocation includes realistic contingencies for software, implementation, training, and operational backfills.",
-      "The executive team actively supports adopting standard software functionality over custom code."
-    ]
-  },
-  {
-    n:2, title:"Business Process Maturity",
-    focus:"Standardized workflows & cross-functional handoffs",
-    qs:[
-      "Core end-to-end operational workflows (e.g., Procure-to-Pay, Order-to-Cash) are fully documented.",
-      "Processes are standardized across all business units, regional branches, and subsidiaries.",
-      "Operational handoffs between functional departments occur smoothly without informal workarounds.",
-      "Process owners are formally assigned and held accountable for workflow performance.",
-      "Key stakeholders are open to re-engineering legacy workflows to match industry best practices."
-    ]
-  },
-  {
-    n:3, title:"Data Management & Quality",
-    focus:"Master data cleanliness, governance & single source of truth",
-    qs:[
-      "Master data (Customer, Vendor, SKU/Item Master, Chart of Accounts) is deduplicated and cleaned.",
-      "Formal data governance rules exist defining clear ownership for data creation and maintenance.",
-      "Historical data retention strategy is defined (what to migrate vs. what to archive).",
-      "Operational and financial reporting relies on a single source of truth rather than disparate spreadsheets.",
-      "Data structures across existing legacy systems are well-mapped and standardized."
-    ]
-  },
-  {
-    n:4, title:"People, Culture & Change Management",
-    focus:"Digital readiness, leadership support & change enablement",
-    qs:[
-      "A dedicated Organizational Change Management (OCM) and internal communication plan is in place.",
-      "Mid-level managers actively support new system adoption and operational change.",
-      "Employees across departments demonstrate high digital literacy and adaptability to new tools.",
-      "Structured end-user training programs and documentation are planned and budgeted for.",
-      "Cross-departmental trust and collaboration levels are high across the organization."
-    ]
-  },
-  {
-    n:5, title:"Technology & Architecture",
-    focus:"Cloud infrastructure, API readiness & cybersecurity",
-    qs:[
-      "Current IT infrastructure, network stability, and security standards can support real-time cloud operations.",
-      "Third-party integrations (e.g., APIs to bank portals, e-commerce, CRM) are fully cataloged.",
-      "The organization has clear protocols for cybersecurity, access controls, and data protection.",
-      "Legacy applications targeted for retirement or retention have been audited and prioritized.",
-      "Internal IT personnel have the capacity and skill set to co-manage the solution architecture."
-    ]
-  },
-  {
-    n:6, title:"Project Management & Capacity",
-    focus:"Key SME bandwidth, PMO maturity & backfill strategies",
-    qs:[
-      "Critical Subject Matter Experts (SMEs) can dedicate 20%–50% of their weekly time to the ERP project.",
-      "A clear plan or budget exists to backfill daily duties for core project team members.",
-      "An experienced Project Manager (PMO) is assigned to track scope, budget, and risk mitigation.",
-      "Key project milestones, deliverables, and sign-off criteria are defined upfront.",
-      "The organization has a track record of successfully executing large-scale technology transformations."
-    ]
-  }
-];
-
-const LEVELS = [
-  { lv:1, name:"Ad-Hoc",     range:"1.0 – 1.8", flag:"Critical Risk",  c:"var(--l1)",
-    desc:"Chaotic, siloed operations. Tribal knowledge dominates. Spreadsheets drive core functions." },
-  { lv:2, name:"Defined",    range:"1.9 – 2.6", flag:"High Risk",      c:"var(--l2)",
-    desc:"Departmental rules exist but cross-functional handoffs fail. High data duplication." },
-  { lv:3, name:"Standardized",range:"2.7 – 3.4", flag:"ERP Ready",     c:"var(--l3)",
-    desc:"End-to-end workflows documented. Data governance active. Change plan ready." },
-  { lv:4, name:"Integrated", range:"3.5 – 4.2", flag:"Advanced",       c:"var(--l4)",
-    desc:"High data integrity. Cloud-ready architecture. High digital adoption across teams." },
-  { lv:5, name:"Optimized",  range:"4.3 – 5.0", flag:"Industry Leader",c:"var(--l5)",
-    desc:"Continuous automation, real-time analytics, AI integration, agile execution." }
-];
-
-const PLAYBOOK = [
-  { lv:1, vuln:"Severe process chaos, rampant spreadsheets, no data rules.",
-    act:"Halt vendor demos. Establish an Executive Steering Committee, draft basic process flowcharts for core revenues, and run an inventory / master data deduplication audit." },
-  { lv:2, vuln:"Silo friction, custom workaround mindset, duplicate records.",
-    act:"Assign process owners for end-to-end handoffs (e.g., Order-to-Cash). Launch a formal Change Management strategy and build master data governance templates." },
-  { lv:3, vuln:"SME bandwidth crunch during implementation phase.",
-    act:"Green light for ERP Selection / RFP. Allocate explicit backfill budgets for key SMEs (20–50% time) and build data extraction scripts." },
-  { lv:4, vuln:"Minor integration latency or legacy system debt.",
-    act:"Finalize API integration mapping, conduct mock data dry-runs, and accelerate user adoption testing (UAT) with early champion networks." },
-  { lv:5, vuln:"Over-engineering or missing cutting-edge capabilities.",
-    act:"Evaluate embedded AI, process mining tools, and automated testing frameworks to maximize platform ROI from Day 1." }
-];
-
-const ROADMAP = [
-  { t:"Days 0–30",  d:"Steering committee charter, baseline audit, risk register" },
-  { t:"Days 31–60", d:"Process flows for core revenue chains, data dedup kickoff" },
-  { t:"Days 61–90", d:"Governance templates, OCM plan, vendor demo re-gate" }
-];
-
-/* ================================================================
-   STATE
-================================================================ */
-let answers = {};               // qIdx -> 1..5
-let industryIdx = 0;
-
-const qCount = DIMENSIONS.reduce((s,d)=>s+d.qs.length,0);
-const qDim = {};                // qIdx -> dimIdx
-(function(){
-  let i=0;
-  DIMENSIONS.forEach((d,di)=>{ d.qs.forEach(()=>{ qDim[i++]=di; }); });
-})();
-
-/* ================================================================
-   RENDER — static
-================================================================ */
-const $ = id => document.getElementById(id);
-
-function renderLevels(){
-  $("lvl-cards").innerHTML = LEVELS.map(l=>`
-    <div class="lvl" data-lv="${l.lv}">
-      <div class="bar"></div>
-      <div class="lvl-top">
-        <h3>Level ${l.lv} — ${l.name}</h3>
-        <span class="flag">${l.flag}</span>
-      </div>
-      <div class="range">Score ${l.range}</div>
-      <div class="desc">${l.desc}</div>
-    </div>`).join("");
-}
-
-function renderIndustries(){
-  $("ind-selector").innerHTML = INDUSTRIES.map((ind,i)=>`
-    <button class="ind${i===industryIdx?" active":""}" onclick="setIndustry(${i})">
-      ${ind.name}<small>${ind.w.map(w=>(w*100)+"%").join(" · ")}</small>
-    </button>`).join("");
-
-  const rows = DIMENSIONS.map((d,di)=>{
-    const tds = INDUSTRIES.map(ind=>{
-      const hi = ind.w[di] === Math.max(...ind.w);
-      return `<td class="${hi?"hi":""}">${(ind.w[di]*100).toFixed(0)}%</td>`;
-    }).join("");
-    return `<tr><th>${d.n}. ${d.title}</th>${tds}</tr>`;
-  }).join("");
-  const total = `<tr><th style="font-weight:700;color:var(--gold-2)">Total Weight</th>${INDUSTRIES.map(()=>'<td style="font-weight:700;color:var(--gold-2)">100%</td>').join("")}</tr>`;
-  $("weight-table").innerHTML = rows + total;
-}
-
-function renderDims(){
-  let qIdx = 0;
-  $("dims").innerHTML = DIMENSIONS.map(d=>{
-    const qs = d.qs.map(q=>{
-      const idx = qIdx++;
-      return `
-      <div class="q">
-        <span class="q-idx">Q${idx+1}</span>
-        <div class="q-text">${q}</div>
-        <div class="scale" role="radiogroup" aria-label="Q${idx+1}">
-          ${[1,2,3,4,5].map(v=>`
-            <button role="radio" aria-checked="false" data-q="${idx}" data-v="${v}"
-              onclick="setAnswer(${idx},${v})">${v}</button>`).join("")}
-        </div>
-      </div>`;
-    }).join("");
-    return `
-    <div class="dim" id="dim-${d.n}">
-      <div class="dim-head">
-        <div class="dim-num">${d.n}</div>
-        <div style="flex:1;min-width:0">
-          <h3>${d.title}</h3>
-          <p>${d.focus}</p>
-        </div>
-        <div class="dim-prog"><b>0</b> / 5 answered</div>
-      </div>
-      <div class="scale-legend">
-        <span><i></i>1 — Strongly disagree</span>
-        <span><i></i>5 — Strongly agree</span>
-      </div>
-      ${qs}
-    </div>`;
-  }).join("");
-}
-
-function renderRadar(scores,color){
-  const cx=150, cy=132, R=96, n=6;
-  let g="";
-  for(let ring=1; ring<=5; ring++){
-    const r = R*ring/5;
-    let pts=[];
-    for(let i=0;i<n;i++){
-      const a = -Math.PI/2 + i*2*Math.PI/n;
-      pts.push(`${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`);
-    }
-    g += `<polygon points="${pts.join(" ")}" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/>`;
-  }
-  for(let i=0;i<n;i++){
-    const a = -Math.PI/2 + i*2*Math.PI/n;
-    g += `<line x1="${cx}" y1="${cy}" x2="${(cx+R*Math.cos(a)).toFixed(1)}" y2="${(cy+R*Math.sin(a)).toFixed(1)}" stroke="rgba(255,255,255,.07)" stroke-width="1"/>`;
-  }
-  const poly = scores.map((s,i)=>{
-    const a = -Math.PI/2 + i*2*Math.PI/n;
-    const r = R*s/5;
-    return `${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`;
-  }).join(" ");
-  const dots = scores.map((s,i)=>{
-    const a = -Math.PI/2 + i*2*Math.PI/n;
-    const r = R*s/5;
-    return `<circle cx="${(cx+r*Math.cos(a)).toFixed(1)}" cy="${(cy+r*Math.sin(a)).toFixed(1)}" r="3.4" fill="${color}"/>`;
-  }).join("");
-  const labels = DIMENSIONS.map(d=>`D${d.n}`).map((t,i)=>{
-    const a = -Math.PI/2 + i*2*Math.PI/n;
-    const r = R+20;
-    return `<text x="${(cx+r*Math.cos(a)).toFixed(1)}" y="${(cy+r*Math.sin(a)).toFixed(1)+4}"
-      text-anchor="${Math.abs(Math.cos(a))<.3?"middle":(Math.cos(a)>0?"start":"end")}"
-      fill="rgba(237,232,220,.75)" font-family="Inter,system-ui" font-size="11.5" font-weight="600">${t}</text>`;
-  }).join("");
-  $("radar").innerHTML = `
-    <svg viewBox="0 0 300 280" width="300" height="280" role="img" aria-label="Radar chart of dimension scores">
-      ${g}
-      <polygon points="${poly}" fill="${color}" fill-opacity="0.22" stroke="${color}" stroke-width="2" stroke-linejoin="round" style="transition:all .8s ease"/>
-      ${dots}${labels}
-    </svg>`;
-}
-
-function renderBars(scores,color){
-  $("bars").innerHTML = DIMENSIONS.map((d,i)=>`
-    <div class="bar-row">
-      <div class="lab"><b>${d.n}. ${d.title}</b><em>${scores[i]===null?"—":scores[i].toFixed(2)}</em></div>
-      <div class="bar-track"><div class="bar-fill" data-i="${i}" style="background:${color}"></div></div>
-    </div>`).join("");
-  requestAnimationFrame(()=>{
-    DIMENSIONS.forEach((d,i)=>{
-      const fill = document.querySelector(`.bar-fill[data-i="${i}"]`);
-      if(fill && scores[i]!=null) fill.style.width = (scores[i]/5*100)+"%";
-    });
-  });
-}
-
-/* ================================================================
-   STATE MUTATION
-================================================================ */
-function setIndustry(i){
-  industryIdx = i;
-  document.querySelectorAll(".ind").forEach((el,idx)=>el.classList.toggle("active",idx===i));
-  update();
-}
-
-function setAnswer(qIdx,val){
-  if(answers[qIdx]===val) delete answers[qIdx]; else answers[qIdx]=val;
-  const btn = document.querySelector(`.scale button[data-q="${qIdx}"][data-v="${val}"]`);
-  if(btn){
-    const sel = btn.parentElement.querySelector(".sel");
-    if(sel) sel.classList.remove("sel"), sel.setAttribute("aria-checked","false");
-    if(answers[qIdx]!==undefined) btn.classList.add("sel"), btn.setAttribute("aria-checked","true");
-  }
-  update();
-}
-
-function dimScores(){
-  const out = [];
-  let qIdx = 0;
-  DIMENSIONS.forEach(d=>{
-    const vs=[];
-    d.qs.forEach(()=>{
-      if(answers[qIdx]!==undefined) vs.push(answers[qIdx]);
-      qIdx++;
-    });
-    out.push(vs.length ? vs.reduce((a,b)=>a+b,0)/vs.length : null);
-  });
-  return out;
-}
-
-function levelFor(score){
-  if(score===null) return null;
-  if(score<1.9) return 0;
-  if(score<2.7) return 1;
-  if(score<3.5) return 2;
-  if(score<4.3) return 3;
-  return 4;
-}
-
-function weightedScore(ds){
-  const w = INDUSTRIES[industryIdx].w;
-  let sum=0, wsum=0;
-  ds.forEach((s,i)=>{
-    if(s!==null){ sum += s*w[i]; wsum += w[i]; }
-  });
-  return wsum>0 ? sum/wsum : null;
-}
-
-const VERDICTS = [
-  { t:"Critical Risk — Not Ready",             v:"Pause all software procurement. Execute the 90-day remediation roadmap before any vendor conversation. Selecting software now would multiply customization risk, cost inflation, and project failure probability." },
-  { t:"High Risk — Conditionally Not Ready",   v:"Withhold the RFP. Fix silo friction, assign process owners for end-to-end handoffs, and stand up change management and master data governance before entering selection." },
-  { t:"ERP Ready — Proceed to Selection",      v:"Green light ERP selection / RFP. Secure explicit backfill budgets for key SMEs (20–50% time) and build data extraction scripts to protect the implementation phase." },
-  { t:"Advanced — Accelerate",                 v:"You are ready to move fast. Finalize API integration mapping, run mock data dry-runs, and drive UAT through early champion networks to compress go-live risk." },
-  { t:"Industry Leader — Optimize",            v:"Maximize platform ROI from Day 1. Evaluate embedded AI, process mining tools, and automated testing frameworks rather than settling for baseline functionality." }
-];
-
-function update(){
-  /* progress */
-  const answered = Object.keys(answers).length;
-  const complete = answered===qCount;
-  DIMENSIONS.forEach((d,di)=>{
-    const el = document.querySelector(`#dim-${d.n} .dim-prog b`);
-    let cnt=0, qIdx=0;
-    DIMENSIONS.forEach((dd,i)=>{
-      dd.qs.forEach(()=>{
-        if(i===di && answers[qIdx]!==undefined) cnt++;
-        qIdx++;
-      });
-    });
-    if(el) el.textContent = cnt;
-  });
-
-  const ds = dimScores();
-  const score = weightedScore(ds);
-  const lvl = levelFor(score);
-  const L = lvl!==null ? LEVELS[lvl] : null;
-
-  /* topbar */
-  $("tb-score").textContent = score!==null ? score.toFixed(2) : "—";
-  const tb = $("tb-level");
-  tb.textContent = L ? `Level ${L.lv}` : "Pending";
-  tb.style.background = L ? L.c : "rgba(255,255,255,.15)";
-
-  /* gauge */
-  const ring = $("ring");
-  const C = 640.9;
-  if(score!==null){
-    ring.style.stroke = L.c;
-    ring.style.strokeDashoffset = C*(1-score/5);
-    $("g-score").textContent = score.toFixed(2);
-    $("g-score").style.color = L.c;
-  } else {
-    ring.style.strokeDashoffset = C;
-    $("g-score").textContent = "—";
-    $("g-score").style.color = "";
-  }
-
-  /* main verdict */
-  if(L){
-    $("res-title").textContent = `Level ${L.lv} — ${L.name}`;
-    const badge = $("res-badge");
-    badge.textContent = L.flag;
-    badge.style.color = L.c;
-    badge.style.borderColor = L.c;
-    badge.style.background = "rgba(0,0,0,.25)";
-    $("res-verdict").textContent = VERDICTS[lvl].v;
-    $("res-kw").innerHTML = [
-      `<span>Score <b>${score.toFixed(2)}</b> / 5.00</span>`,
-      `<span>Range <b>${L.range}</b></span>`,
-      `<span>Industry <b>${INDUSTRIES[industryIdx].name}</b></span>`,
-      `<span>Answered <b>${answered}</b> / ${qCount}</span>`
-    ].join("");
-  } else {
-    $("res-title").textContent = "Awaiting responses";
-    $("res-badge").textContent = "PENDING";
-    $("res-badge").style.color = "var(--gold-2)";
-    $("res-badge").style.borderColor = "rgba(200,166,92,.4)";
-    $("res-badge").style.background = "rgba(200,166,92,.1)";
-    $("res-verdict").textContent = "Complete the 30 statements to generate your executive readiness report.";
-    $("res-kw").innerHTML = `<span>Answered <b>${answered}</b> / ${qCount}</span>`;
-  }
-
-  /* radar + bars */
-  const s5 = ds.map(s=>s===null?0:s);
-  const radarColor = L ? L.c : "var(--gold)";
-  renderRadar(s5,radarColor);
-  renderBars(ds,radarColor);
-
-  /* playbook */
-  if(L){
-    const P = PLAYBOOK[lvl];
-    $("playbook").innerHTML = `
-      <h4><span class="pnum">Post-Assessment Action Playbook</span>Level ${L.lv} — ${L.name}</h4>
-      <div class="pbv"><b>Primary Vulnerability</b><p>${P.vuln}</p></div>
-      <div class="pba"><b>Immediate Remediation</b><p>${P.act}</p></div>`;
-    $("roadmap").style.display = "";
-    if(lvl<=1){
-      $("roadmap").innerHTML = `
-        <h4>90-Day Remediation Roadmap <span style="font-size:12px;color:var(--l1);letter-spacing:1.5px;text-transform:uppercase;font-family:var(--sans)">· Mandatory before procurement</span></h4>
-        <p>Level 1–2 organizations must pause software procurement and execute this targeted roadmap. Re-assess at day 90.</p>
-        <div class="steps">
-          ${ROADMAP.map(s=>`<div class="step"><b>${s.t}</b><span>${s.d}</span></div>`).join("")}
-        </div>`;
-    } else {
-      $("roadmap").innerHTML = `
-        <h4>Mandate: Match Readiness Before Software Selection</h4>
-        <p>${lvl===2 ? "Green light granted — proceed to ERP Selection / RFP." : "Readiness validated — proceed with confidence."} Keep the steering committee active through go-live; readiness decays without sustained governance.</p>`;
-    }
-  } else {
-    $("playbook").innerHTML = `
-      <h4><span class="pnum">Post-Assessment Action Playbook</span>Pending</h4>
-      <p style="font-size:13.5px;color:var(--muted);font-weight:300">The action playbook unlocks once all 30 statements receive a score.</p>`;
-    $("roadmap").style.display = "none";
-  }
-
-  if(complete) toast("Readiness report finalized — " + L.name);
-}
-
-function toast(msg){
-  const t = $("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(toast._t);
-  toast._t = setTimeout(()=>t.classList.remove("show"),2600);
-}
-
-function resetAll(){
-  answers = {};
-  document.querySelectorAll(".scale button").forEach(b=>{
-    b.classList.remove("sel"); b.setAttribute("aria-checked","false");
-  });
-  update();
-  toast("Assessment reset");
-}
-
-/* ================================================================
-   INIT
-================================================================ */
-renderLevels();
-renderIndustries();
-renderDims();
-update();
-</script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
+
 </html>
