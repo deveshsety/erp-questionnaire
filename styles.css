@@ -1237,53 +1237,130 @@ footer p {
 }
 
 /* ================================================================
+   PRINT FOOTER (hidden on screen, shown in print)
+   ================================================================ */
+
+.print-footer {
+  display: none;
+}
+
+/* ================================================================
    PRINT
    ================================================================ */
 
 @media print {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   body {
     background: #fff;
     color: #111;
+    font-size: 11pt;
+    line-height: 1.5;
   }
 
-  .topbar,
+  /* hide everything */
+  header,
+  footer,
+  .hero,
+  #levels,
+  #industry,
+  #questionnaire,
   .actions,
-  .ind,
-  .toast,
   .topbar-nav,
-  .hero-actions {
+  .toast,
+  .fade-up,
+  .sec-head {
     display: none !important;
   }
 
   .wrap {
     max-width: none;
+    padding: 0;
   }
 
-  .dim,
-  .results,
-  .lvl,
-  .wtable,
-  .playbook,
-  .roadmap {
-    border-color: #ddd;
-    background: #fff;
+  /* results only */
+  #results {
+    display: block !important;
   }
 
-  .q-text {
-    color: #222;
+  .results {
+    border: none;
+    background: none;
+    padding: 0;
   }
 
-  h1, .sec-title, .res-main h3, .playbook h4, .roadmap h4 {
+  .res-grid {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .gauge svg {
+    width: 140px;
+    height: 140px;
+  }
+
+  .ring-val {
+    stroke: #333;
+  }
+
+  .res-main h3 {
+    color: #111;
+    font-size: 16pt;
+    margin-bottom: 6px;
+  }
+
+  .verdict {
+    color: #333;
+    font-size: 10.5pt;
+    margin-bottom: 12px;
+  }
+
+  .level-badge {
+    border: 1px solid #333;
+    background: none;
     color: #111;
   }
 
-  .scale button {
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
+  .charts,
+  .playbook,
+  .roadmap {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: none;
+    padding: 14px;
+    margin-bottom: 16px;
   }
 
-  .fade-up {
-    opacity: 1;
-    transform: none;
+  .playbook h4,
+  .roadmap h4 {
+    color: #111;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+
+  .verdict,
+  .playbook p,
+  .roadmap p {
+    color: #222;
+  }
+
+  .print-footer {
+    display: block !important;
+    margin-top: 30px;
+    padding-top: 12px;
+    border-top: 1px solid #ccc;
+    font-size: 8.5pt;
+    color: #888;
+    text-align: center;
   }
 }
