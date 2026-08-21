@@ -66,7 +66,7 @@ const INDUSTRIES = [
         n: 6, title: "Project Management & Capacity",
         focus: "Key SME bandwidth, PMO maturity & backfill strategies",
         qs: [
-          "Critical Subject Matter Experts (SMEs) can dedicate 20%–50% of their weekly time to the ERP project.",
+          "Critical Subject Matter Experts (SMEs) can dedicate 20%-50% of their weekly time to the ERP project.",
           "A clear plan or budget exists to backfill daily duties for core project team members.",
           "An experienced Project Manager (PMO) is assigned to track scope, budget, and risk mitigation.",
           "Key project milestones, deliverables, and sign-off criteria are defined upfront.",
@@ -77,23 +77,23 @@ const INDUSTRIES = [
 
     const LEVELS = [
       {
-        lv: 1, name: "Ad-Hoc", range: "1.0 – 1.8", flag: "Critical Risk", c: "var(--l1)",
+        lv: 1, name: "Ad-Hoc", range: "1.0 - 1.8", flag: "Critical Risk", c: "var(--l1)",
         desc: "Chaotic, siloed operations. Tribal knowledge dominates. Spreadsheets drive core functions."
       },
       {
-        lv: 2, name: "Defined", range: "1.9 – 2.6", flag: "High Risk", c: "var(--l2)",
+        lv: 2, name: "Defined", range: "1.9 - 2.6", flag: "High Risk", c: "var(--l2)",
         desc: "Departmental rules exist but cross-functional handoffs fail. High data duplication."
       },
       {
-        lv: 3, name: "Standardized", range: "2.7 – 3.4", flag: "ERP Ready", c: "var(--l3)",
+        lv: 3, name: "Standardized", range: "2.7 - 3.4", flag: "ERP Ready", c: "var(--l3)",
         desc: "End-to-end workflows documented. Data governance active. Change plan ready."
       },
       {
-        lv: 4, name: "Integrated", range: "3.5 – 4.2", flag: "Advanced", c: "var(--l4)",
+        lv: 4, name: "Integrated", range: "3.5 - 4.2", flag: "Advanced", c: "var(--l4)",
         desc: "High data integrity. Cloud-ready architecture. High digital adoption across teams."
       },
       {
-        lv: 5, name: "Optimized", range: "4.3 – 5.0", flag: "Industry Leader", c: "var(--l5)",
+        lv: 5, name: "Optimized", range: "4.3 - 5.0", flag: "Industry Leader", c: "var(--l5)",
         desc: "Continuous automation, real-time analytics, AI integration, agile execution."
       }
     ];
@@ -109,7 +109,7 @@ const INDUSTRIES = [
       },
       {
         lv: 3, vuln: "SME bandwidth crunch during implementation phase.",
-        act: "Green light for ERP Selection / RFP. Allocate explicit backfill budgets for key SMEs (20–50% time) and build data extraction scripts."
+        act: "Green light for ERP Selection / RFP. Allocate explicit backfill budgets for key SMEs (20%-50% time) and build data extraction scripts."
       },
       {
         lv: 4, vuln: "Minor integration latency or legacy system debt.",
@@ -122,15 +122,15 @@ const INDUSTRIES = [
     ];
 
     const ROADMAP = [
-      { t: "Days 0–30", d: "Steering committee charter, baseline audit, risk register" },
-      { t: "Days 31–60", d: "Process flows for core revenue chains, data dedup kickoff" },
-      { t: "Days 61–90", d: "Governance templates, OCM plan, vendor demo re-gate" }
+      { t: "Days 0-30", d: "Steering committee charter, baseline audit, risk register" },
+      { t: "Days 31-60", d: "Process flows for core revenue chains, data dedup kickoff" },
+      { t: "Days 61-90", d: "Governance templates, OCM plan, vendor demo re-gate" }
     ];
 
     const VERDICTS = [
-      { t: "Critical Risk — Not Ready", v: "Pause all software procurement. Execute the 90-day remediation roadmap before any vendor conversation. Selecting software now would multiply customization risk, cost inflation, and project failure probability." },
-      { t: "High Risk — Conditionally Not Ready", v: "Withhold the RFP. Fix silo friction, assign process owners for end-to-end handoffs, and stand up change management and master data governance before entering selection." },
-      { t: "ERP Ready — Proceed to Selection", v: "Green light ERP selection / RFP. Secure explicit backfill budgets for key SMEs (20–50% time) and build data extraction scripts to protect the implementation phase." },
-      { t: "Advanced — Accelerate", v: "You are ready to move fast. Finalize API integration mapping, run mock data dry-runs, and drive UAT through early champion networks to compress go-live risk." },
-      { t: "Industry Leader — Optimize", v: "Maximize platform ROI from Day 1. Evaluate embedded AI, process mining tools, and automated testing frameworks rather than settling for baseline functionality." }
+      { t: "Critical Risk - Not Ready", v: "Pause all software procurement. Execute the 90-day remediation roadmap before any vendor conversation. Selecting software now would multiply customization risk, cost inflation, and project failure probability." },
+      { t: "High Risk - Conditionally Not Ready", v: "Withhold the RFP. Fix silo friction, assign process owners for end-to-end handoffs, and stand up change management and master data governance before entering selection." },
+      { t: "ERP Ready - Proceed to Selection", v: "Green light ERP selection / RFP. Secure explicit backfill budgets for key SMEs (20%-50% time) and build data extraction scripts to protect the implementation phase." },
+      { t: "Advanced - Accelerate", v: "You are ready to move fast. Finalize API integration mapping, run mock data dry-runs, and drive UAT through early champion networks to compress go-live risk." },
+      { t: "Industry Leader - Optimize", v: "Maximize platform ROI from Day 1. Evaluate embedded AI, process mining tools, and automated testing frameworks rather than settling for baseline functionality." }
     ];

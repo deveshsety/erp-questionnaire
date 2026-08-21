@@ -4,26 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ERP Readiness &amp; Maturity Assessment — Executive Diagnostic</title>
+  <title>ERP Readiness &amp; Maturity Assessment - Executive Diagnostic</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
   <header class="topbar">
-    <div class="wrap topbar-inner">
+    <div class="wrap topbar-inner" style="position:relative">
       <div class="mark">ERP</div>
       <div class="topbar-title">
         <b>Readiness &amp; Maturity Diagnostic</b>
         <span>ERP Advisory Group</span>
       </div>
-      <div class="chip">Score <b id="tb-score">—</b></div>
-      <div class="chip level" id="tb-level" style="background:var(--l3);color:#0E0A05">—</div>
+      <nav class="topbar-nav">
+        <a href="#levels">Levels</a>
+        <a href="#questionnaire">Assess</a>
+        <a href="#results">Results</a>
+      </nav>
+      <div class="chip">Score <b id="tb-score">-</b></div>
+      <div class="chip level" id="tb-level" style="background:var(--l3);color:#fff">-</div>
+      <div class="progress-bar" id="progress-bar"></div>
     </div>
   </header>
 
@@ -31,32 +38,23 @@
 
     <!-- HERO -->
     <div class="hero">
-      <div class="eyebrow">Advisory Methodology &amp; Implementation Spec</div>
-      <h1>ERP Readiness &amp;<br>Maturity Assessment</h1>
-      <p class="sub">A strategic <b>6-dimension framework</b> built for C-Suite executives. 30-question diagnostic,
-        industry-weighted scoring, one decisive answer: <b>is your enterprise ready to buy and run an ERP?</b></p>
-      <div class="doc-meta">
-        <span>Target: CIO · CFO · COO</span>
-        <span>Steering Committees</span>
-        <span>Score 1.0 – 5.0</span>
-        <span>5 Maturity Levels</span>
+      <div class="hero-eyebrow fade-up">
+        <i></i>Executive Diagnostic
       </div>
-      <div class="principle">
-        <span class="tag">Key Principle</span>
-        <b>Match readiness before software selection.</b> Organizations scoring at Level 1 or Level 2 must pause
-        software procurement and execute a targeted 90-day remediation roadmap. Selecting software before Level 3
-        significantly increases customization risk, cost inflation, and project failure. Over 65% of failed ERP
-        implementations trace back to organizational unreadiness — poor data hygiene, unstandardized processes,
-        misaligned leadership, missing change management.
+      <h1 class="fade-up fade-up-delay-1">Is Your Enterprise<br>Ready for ERP?</h1>
+      <p class="sub fade-up fade-up-delay-2">A strategic <b>6-dimension framework</b> for C-Suite executives.
+        30-question diagnostic with industry-weighted scoring - one decisive answer on organizational readiness.</p>
+      <div class="hero-actions fade-up fade-up-delay-3">
+        <a href="#questionnaire" class="btn primary"><i class="ph ph-arrow-down"></i> Start Assessment</a>
+        <a href="#levels" class="btn secondary">View Maturity Levels</a>
       </div>
     </div>
 
     <!-- LEVELS -->
     <section id="levels">
       <div class="sec-head">
-        <div class="sec-kicker">The Maturity Ladder</div>
-        <h2 class="sec-title">5 Levels of ERP Readiness</h2>
-        <p class="sec-sub">Your weighted score places the organization on one rung. Each rung carries a distinct risk
+        <h2 class="sec-title fade-up">5 Levels of ERP Readiness</h2>
+        <p class="sec-sub fade-up">Your weighted score places the organization on one rung. Each rung carries a distinct risk
           posture and a mandated next move.</p>
       </div>
       <div class="levels" id="lvl-cards"></div>
@@ -65,37 +63,19 @@
     <!-- INDUSTRY -->
     <section id="industry">
       <div class="sec-head">
-        <div class="sec-kicker">Context First</div>
-        <h2 class="sec-title">Select Your Industry</h2>
-        <p class="sec-sub">A one-size-fits-all assessment produces inaccurate risk profiles. Operational drivers vary by
-          sector — weights recalibrate automatically.</p>
+        <h2 class="sec-title fade-up">Select Your Industry</h2>
+        <p class="sec-sub fade-up">Operational drivers vary by sector - weights recalibrate automatically.</p>
       </div>
       <div class="industries" id="ind-selector"></div>
-      <div class="wtable">
-        <table>
-          <thead>
-            <tr>
-              <th>Dimension</th>
-              <th>Manufacturing</th>
-              <th>Retail &amp; E-Comm</th>
-              <th>Healthcare &amp; Pharma</th>
-              <th>Prof. Services</th>
-              <th>BFSI</th>
-            </tr>
-          </thead>
-          <tbody id="weight-table"></tbody>
-        </table>
-      </div>
+      <div class="wtable" id="wtable"></div>
     </section>
 
     <!-- QUESTIONNAIRE -->
     <section id="questionnaire">
       <div class="sec-head">
-        <div class="sec-kicker">The Instrument</div>
-        <h2 class="sec-title">30-Question Diagnostic</h2>
-        <p class="sec-sub">Rate each statement honestly — <b style="color:var(--ivory)">1 (Strongly disagree)</b> to <b
-            style="color:var(--ivory)">5 (Strongly agree)</b>. Unanswered items are excluded; the score finalizes when
-          all 30 are complete.</p>
+        <h2 class="sec-title fade-up">30-Question Diagnostic</h2>
+        <p class="sec-sub fade-up">Rate each statement - <b>1 (Strongly disagree)</b> to <b>5 (Strongly agree)</b>.
+          Unanswered items are excluded; the score finalizes when all 30 are complete.</p>
       </div>
       <div id="dims"></div>
     </section>
@@ -103,10 +83,8 @@
     <!-- RESULTS -->
     <section id="results">
       <div class="sec-head">
-        <div class="sec-kicker">The Verdict</div>
-        <h2 class="sec-title">Readiness Report</h2>
-        <p class="sec-sub">Computed live with industry weighting. Print or export to share with the steering committee.
-        </p>
+        <h2 class="sec-title fade-up">Readiness Report</h2>
+        <p class="sec-sub fade-up">Computed live with industry weighting. Print or export to share with the steering committee.</p>
       </div>
       <div class="results">
         <div class="res-grid">
@@ -116,7 +94,7 @@
               <circle class="ring-val" id="ring" cx="120" cy="120" r="102" stroke-dasharray="640.9"
                 stroke-dashoffset="640.9"></circle>
             </svg>
-            <div class="g-num"><b id="g-score">—</b><span>Readiness Score</span></div>
+            <div class="g-num"><b id="g-score">-</b><span>Readiness Score</span></div>
           </div>
           <div class="res-main">
             <h3 id="res-title">Awaiting responses</h3>
@@ -143,8 +121,8 @@
         <div class="roadmap" id="roadmap"></div>
 
         <div class="actions">
-          <button class="btn gold" onclick="window.print()">Print / Export Report</button>
-          <button class="btn" onclick="resetAll()">Reset Assessment</button>
+          <button class="btn primary" onclick="window.print()"><i class="ph ph-printer"></i> Print Report</button>
+          <button class="btn secondary" onclick="resetAll()"><i class="ph ph-arrow-counter-clockwise"></i> Reset</button>
         </div>
       </div>
     </section>
@@ -152,7 +130,7 @@
 
   <footer>
     <div class="fmark">ERP Advisory Group</div>
-    <p>Executive Maturity Assessment · Strategic 6-Dimension Framework · Advisory Methodology</p>
+    <p>Executive Maturity Assessment &middot; Strategic 6-Dimension Framework</p>
   </footer>
 
   <div class="toast" id="toast"></div>
