@@ -231,6 +231,10 @@ function update() {
   const answered = Object.keys(answers).length;
   const complete = answered === qCount;
 
+  /* print button */
+  const printBtn = $("print-btn");
+  if (printBtn) printBtn.disabled = !complete;
+
   /* progress bar */
   const pct = (answered / qCount) * 100;
   const bar = $("progress-bar");

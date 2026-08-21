@@ -278,6 +278,15 @@ h1 {
   transform: scale(0.97);
 }
 
+.btn:disabled {
+  background: #E0DBD3;
+  color: #B0A898;
+  cursor: not-allowed;
+  pointer-events: none;
+  box-shadow: none;
+  transform: none;
+}
+
 .btn.primary {
   background: var(--accent);
   color: #fff;
@@ -1338,6 +1347,10 @@ footer p {
     background: none;
     padding: 14px;
     margin-bottom: 16px;
+  }
+
+  .playbook {
+    page-break-before: always;
   }
 
   .playbook h4,
