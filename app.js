@@ -48,7 +48,7 @@ function renderLevels() {
 function renderIndustries() {
   $("ind-selector").innerHTML = INDUSTRIES.map((ind, i) => `
     <button class="ind${i === industryIdx ? " active" : ""}" onclick="setIndustry(${i})">
-      ${ind.name}<small>${ind.w.map(w => (w * 100) + "%").join(" · ")}</small>
+      ${ind.name}
     </button>`).join("");
 
   const cols = '<col class="dim-col">' +
@@ -165,14 +165,8 @@ function renderBars(scores, color) {
   $("bars").innerHTML = DIMENSIONS.map((d, i) => `
     <div class="bar-row">
       <div class="lab"><b>${d.n}. ${d.title}</b><em>${scores[i] === null ? "-" : scores[i].toFixed(2)}</em></div>
-      <div class="bar-track"><div class="bar-fill" data-i="${i}" style="background:${color}"></div></div>
+      <div class="bar-track"><div class="bar-fill" data-i="${i}" style="background:${color};width:${scores[i] !== null ? (scores[i] / 5 * 100) + "%" : "0"}"></div></div>
     </div>`).join("");
-  requestAnimationFrame(() => {
-    DIMENSIONS.forEach((d, i) => {
-      const fill = document.querySelector(`.bar-fill[data-i="${i}"]`);
-      if (fill && scores[i] != null) fill.style.width = (scores[i] / 5 * 100) + "%";
-    });
-  });
 }
 
 /* ================================================================

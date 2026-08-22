@@ -484,6 +484,7 @@ section {
    ================================================================ */
 
 .wtable {
+  display: none;
   margin-top: 16px;
   border: 1px solid var(--border);
   border-radius: var(--r);
@@ -1312,9 +1313,22 @@ footer p {
     margin-bottom: 20px;
   }
 
+  .gauge {
+    width: 160px;
+    height: 160px;
+  }
+
   .gauge svg {
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
+  }
+
+  .gauge .g-num b {
+    font-size: 36px;
+  }
+
+  .gauge .g-num span {
+    font-size: 8px;
   }
 
   .ring-val {
@@ -1365,6 +1379,91 @@ footer p {
   .playbook p,
   .roadmap p {
     color: #222;
+  }
+
+  /* --- Bar chart fix --- */
+  .bar-fill {
+    background: #333 !important;
+    transition: none !important;
+  }
+
+  .bar-track {
+    background: #e0e0e0 !important;
+  }
+
+  .bar-row .lab b {
+    color: #111;
+  }
+
+  .bar-row .lab em {
+    color: #333;
+  }
+
+  /* --- Gauge fix --- */
+  .ring-val {
+    stroke: #333 !important;
+  }
+
+  .gauge .g-num b {
+    color: #111;
+  }
+
+  /* --- Radar fix --- */
+  .radar-box svg polygon {
+    stroke: #333 !important;
+    fill: rgba(0,0,0,0.08) !important;
+  }
+
+  .radar-box svg circle {
+    fill: #333 !important;
+  }
+
+  .radar-box svg text {
+    fill: #333 !important;
+  }
+
+  .radar-box svg line,
+  .radar-box svg polygon:first-child {
+    stroke: #ccc !important;
+  }
+
+  /* --- Level badge fix --- */
+  .level-badge {
+    border: 1px solid #333 !important;
+    color: #111 !important;
+    background: none !important;
+  }
+
+  /* --- Keyword chips fix --- */
+  .kw span {
+    border-color: #999;
+    color: #333;
+  }
+
+  .kw span b {
+    color: #111;
+  }
+
+  /* --- Roadmap steps --- */
+  .roadmap .step {
+    border-color: #ccc;
+  }
+
+  .roadmap .step b {
+    color: #333;
+  }
+
+  .roadmap .step span {
+    color: #444;
+  }
+
+  /* --- Page breaks --- */
+  .charts {
+    page-break-inside: avoid;
+  }
+
+  .roadmap {
+    page-break-inside: avoid;
   }
 
   .print-footer {
